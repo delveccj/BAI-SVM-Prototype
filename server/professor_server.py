@@ -40,6 +40,7 @@ def register_student():
         repository = data.get('repository', '')
         chapter = data.get('chapter', 'Unknown')
         timestamp = data.get('timestamp', datetime.now().isoformat())
+        live_share_url = data.get('live_share_url', None)
         
         # Store student info
         student_info = {
@@ -50,7 +51,8 @@ def register_student():
             'chapter': chapter,
             'timestamp': timestamp,
             'status': 'connected',
-            'last_seen': datetime.now().isoformat()
+            'last_seen': datetime.now().isoformat(),
+            'live_share_url': live_share_url
         }
         
         connected_students[github_username] = student_info
@@ -335,6 +337,10 @@ DASHBOARD_HTML = '''
                 </div>
                 <div class="student-actions">
                     <a href="${student.codespace_url}" target="_blank" class="btn">🔗 View Codespace</a>
+                    ${student.live_share_url ? 
+                        `<a href="${student.live_share_url}" target="_blank" class="btn btn-success">🤝 Join Live Share</a>` : 
+                        '<span class="btn" style="opacity:0.5">🤝 No Live Share</span>'
+                    }
                     <button onclick="pingStudent('${student.github_username}')" class="btn btn-success">📡 Ping</button>
                 </div>
             `;

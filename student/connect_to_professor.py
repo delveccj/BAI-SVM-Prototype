@@ -112,6 +112,26 @@ def get_server_url():
     
     return server_url
 
+def get_live_share_url():
+    """Get Live Share URL from student"""
+    print("\n🤝 Live Share Connection (Optional)")
+    print("=" * 40)
+    print("💡 To share your workspace with professor:")
+    print("   1. Press Ctrl+Shift+P in VS Code")
+    print("   2. Type 'Live Share: Start Collaboration Session'")
+    print("   3. Copy the generated URL and paste below")
+    print("   4. Or press Enter to skip")
+    print()
+    
+    live_share_url = input("Enter Live Share URL (or press Enter to skip): ").strip()
+    
+    if live_share_url:
+        print("✅ Live Share URL captured!")
+        return live_share_url
+    else:
+        print("⏭️  Skipping Live Share (can add later)")
+        return None
+
 def connect_to_professor():
     """Main connection function"""
     print("🎓 BAI SVM Student Connection")
@@ -123,6 +143,7 @@ def connect_to_professor():
     codespace_info = get_codespace_info()
     chapter = detect_chapter()
     server_url = get_server_url()
+    live_share_url = get_live_share_url()
     
     # Prepare registration data
     registration_data = {
@@ -132,7 +153,8 @@ def connect_to_professor():
         'repository': codespace_info['repository'],
         'chapter': chapter,
         'timestamp': datetime.now().isoformat(),
-        'environment_type': 'codespace' if codespace_info['is_codespace'] else 'local'
+        'environment_type': 'codespace' if codespace_info['is_codespace'] else 'local',
+        'live_share_url': live_share_url
     }
     
     print(f"👤 GitHub Username: {github_username}")
