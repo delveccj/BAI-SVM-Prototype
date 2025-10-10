@@ -7,7 +7,10 @@ import matplotlib.pyplot as plt
 from sklearn.svm import SVR
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
-from .config import save_fig, IMAGES_PATH
+try:
+    from .config import save_fig, IMAGES_PATH
+except ImportError:
+    from config import save_fig, IMAGES_PATH
 
 class SVMRegressionExamples:
     """Class containing SVM regression examples."""

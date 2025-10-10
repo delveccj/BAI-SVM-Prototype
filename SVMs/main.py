@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
 """
 Main script to run SVM examples.
-Usage: python -m SVMs.main [example_type]
+Usage: python main.py [example_type]
 """
 
 import sys
-from .config import setup_environment
-from .linear_svm import LinearSVMExamples
-from .nonlinear_svm import NonlinearSVMExamples
-from .soft_margin import SoftMarginSVMExamples
-from .svm_regression import SVMRegressionExamples
+import os
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from config import setup_environment
+from linear_svm import LinearSVMExamples
+from nonlinear_svm import NonlinearSVMExamples
+from soft_margin import SoftMarginSVMExamples
+from svm_regression import SVMRegressionExamples
 
 def main():
     """Run SVM examples."""

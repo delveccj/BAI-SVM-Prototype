@@ -9,7 +9,10 @@ from sklearn.datasets import make_moons
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.svm import LinearSVC
 from sklearn.pipeline import make_pipeline
-from .config import save_fig, IMAGES_PATH
+try:
+    from .config import save_fig, IMAGES_PATH
+except ImportError:
+    from config import save_fig, IMAGES_PATH
 
 class NonlinearSVMExamples:
     """Class containing nonlinear SVM examples."""

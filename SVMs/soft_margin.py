@@ -8,7 +8,10 @@ from sklearn.svm import SVC, LinearSVC
 from sklearn import datasets
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
-from .config import save_fig, IMAGES_PATH
+try:
+    from .config import save_fig, IMAGES_PATH
+except ImportError:
+    from config import save_fig, IMAGES_PATH
 
 class SoftMarginSVMExamples:
     """Class containing soft margin SVM examples."""
