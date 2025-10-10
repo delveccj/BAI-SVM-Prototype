@@ -12,7 +12,7 @@ from datetime import datetime
 import sys
 
 # Default server configuration
-DEFAULT_SERVER_URL = "http://localhost:8000"
+DEFAULT_SERVER_URL = "http://localhost:8001"
 
 def get_github_username():
     """Get GitHub username from multiple sources"""

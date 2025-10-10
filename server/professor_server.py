@@ -10,6 +10,7 @@ import json
 import os
 from datetime import datetime
 import logging
+import csv
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -21,6 +22,45 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Store connected students
 connected_students = {}
+
+# CSV audit log file path
+AUDIT_LOG_PATH = '../audit_log.csv'
+
+def init_audit_log():
+    """Initialize the audit log CSV file with headers if it doesn't exist"""
+    if not os.path.exists(AUDIT_LOG_PATH):
+        with open(AUDIT_LOG_PATH, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow([
+                'timestamp',
+                'github_username', 
+                'codespace_name',
+                'codespace_url',
+                'repository',
+                'chapter',
+                'event_type',
+                'live_share_url'
+            ])
+        logger.info(f"Created audit log file: {AUDIT_LOG_PATH}")
+
+def log_student_event(student_data, event_type):
+    """Log student connection/disconnection events to CSV"""
+    try:
+        with open(AUDIT_LOG_PATH, 'a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow([
+                datetime.now().isoformat(),
+                student_data.get('github_username', 'Unknown'),
+                student_data.get('codespace_name', 'Unknown'),
+                student_data.get('codespace_url', ''),
+                student_data.get('repository', ''),
+                student_data.get('chapter', 'Unknown'),
+                event_type,
+                student_data.get('live_share_url', '')
+            ])
+        logger.info(f"Logged {event_type} event for {student_data.get('github_username', 'Unknown')}")
+    except Exception as e:
+        logger.error(f"Failed to log audit event: {str(e)}")
 
 @app.route('/')
 def dashboard():
@@ -57,6 +97,9 @@ def register_student():
         
         connected_students[github_username] = student_info
         
+        # Log the connection event to CSV
+        log_student_event(student_info, 'connected')
+        
         logger.info(f"Student registered: {github_username} from {codespace_name}")
         
         # Notify dashboard of new connection
@@ -85,6 +128,8 @@ def ping_student(username):
     """Ping a specific student"""
     if username in connected_students:
         connected_students[username]['last_seen'] = datetime.now().isoformat()
+        # Log ping event
+        log_student_event(connected_students[username], 'pinged')
         socketio.emit('student_pinged', {'username': username})
         return jsonify({'status': 'pinged'})
     return jsonify({'status': 'not_found'}), 404
@@ -373,10 +418,14 @@ DASHBOARD_HTML = '''
 '''
 
 if __name__ == '__main__':
+    # Initialize audit log
+    init_audit_log()
+    
     print("🎓 Starting BAI SVM Professor Server...")
-    print("📊 Dashboard: http://localhost:8000")
-    print("🔗 Student Registration: http://localhost:8000/register")
-    print("👥 Students API: http://localhost:8000/students")
+    print("📊 Dashboard: http://localhost:8001")
+    print("🔗 Student Registration: http://localhost:8001/register")
+    print("👥 Students API: http://localhost:8001/students")
+    print("📋 Audit Log: audit_log.csv")
     print()
     
-    socketio.run(app, host='0.0.0.0', port=8000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=8001, debug=True)

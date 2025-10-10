@@ -85,7 +85,7 @@
   "forwardPorts": [
     6080,  // noVNC web interface
     5901,  // VNC server
-    8000,  // Professor server
+    8001,  // Professor server
     8888,  // Jupyter
     5000   // Flask development
   ],
@@ -98,7 +98,7 @@
     "5901": {
       "label": "VNC Server"
     },
-    "8000": {
+    "8001": {
       "label": "Professor Dashboard"
     },
     "8888": {
