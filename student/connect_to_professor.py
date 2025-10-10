@@ -97,6 +97,9 @@ def get_server_url():
     # Ask user for server URL
     print("🔗 Professor Server Connection")
     print("=" * 40)
+    print(f"💡 Default server: {DEFAULT_SERVER_URL}")
+    print("   Press Enter to use default, or type a different URL")
+    print()
     
     server_url = input(f"Enter professor's server URL [{DEFAULT_SERVER_URL}]: ").strip()
     if not server_url:
