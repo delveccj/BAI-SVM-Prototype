@@ -1,46 +1,139 @@
 {
-    "name": "BAI SVM Course Environment",
-    "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bullseye",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-python.python",
-                "ms-python.vscode-pylance",
-                "ms-toolsai.jupyter",
-                "ms-toolsai.vscode-jupyter-cell-tags",
-                "ms-toolsai.vscode-jupyter-slideshow"
-            ],
-            "settings": {
-                "python.defaultInterpreterPath": "/usr/local/bin/python",
-                "python.linting.enabled": true,
-                "python.linting.pylintEnabled": true,
-                "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-                "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-                "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
-                "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-                "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
-                "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-                "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
-                "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-                "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
-            }
-        }
+  "name": "BAI SVM Desktop Environment",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  
+  // Features to install
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "vscode",
+      "webPort": "6080",
+      "vncPort": "5901"
     },
-    "postCreateCommand": "pip install -r requirements.txt",
-    "forwardPorts": [8000, 5000, 3000],
-    "portsAttributes": {
-        "8000": {
-            "label": "Professor Server",
-            "onAutoForward": "notify"
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    }
+  },
+
+  // Configure tool-specific properties
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Live Share extensions
+        "ms-vsliveshare.vsliveshare",
+        "ms-vsliveshare.vsliveshare-audio",
+        "ms-vsliveshare.vsliveshare-pack",
+        
+        // GitHub Copilot
+        "github.copilot",
+        "github.copilot-chat",
+        
+        // Python development
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.flake8",
+        
+        // Jupyter
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "ms-toolsai.vscode-jupyter-cell-tags",
+        "ms-toolsai.vscode-jupyter-slideshow",
+        
+        // Git and GitHub
+        "github.vscode-pull-request-github",
+        "eamodio.gitlens",
+        
+        // Productivity
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "ms-vscode.hexeditor",
+        "christian-kohler.path-intellisense",
+        
+        // Theme and UI
+        "pkief.material-icon-theme",
+        "zhuangtongfa.material-theme"
+      ],
+      
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": false,
+        "python.linting.flake8Enabled": true,
+        "python.formatting.provider": "black",
+        "jupyter.askForKernelRestart": false,
+        "liveshare.audio": true,
+        "liveshare.anonymousGuestApproval": "accept",
+        "liveshare.guestApprovalRequired": false,
+        "liveshare.showInStatusBar": "whileCollaborating",
+        "github.copilot.enable": {
+          "*": true,
+          "yaml": false,
+          "plaintext": false,
+          "markdown": true,
+          "python": true,
+          "jupyter": true
         },
-        "5000": {
-            "label": "Student Connection",
-            "onAutoForward": "silent"
-        },
-        "3000": {
-            "label": "Dashboard",
-            "onAutoForward": "notify"
-        }
+        "workbench.colorTheme": "Material Theme Ocean",
+        "workbench.iconTheme": "material-icon-theme",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  // Forward ports
+  "forwardPorts": [
+    6080,  // noVNC web interface
+    5901,  // VNC server
+    8000,  // Professor server
+    8888,  // Jupyter
+    5000   // Flask development
+  ],
+  
+  "portsAttributes": {
+    "6080": {
+      "label": "Desktop (noVNC)",
+      "onAutoForward": "openBrowser"
     },
-    "remoteUser": "vscode"
+    "5901": {
+      "label": "VNC Server"
+    },
+    "8000": {
+      "label": "Professor Dashboard"
+    },
+    "8888": {
+      "label": "Jupyter Lab"
+    }
+  },
+
+  // Lifecycle scripts
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/start-services.sh",
+  
+  // Container user
+  "remoteUser": "vscode",
+  
+  // Security and capabilities
+  "privileged": false,
+  "init": true,
+  
+  // Mount the Docker socket for any container operations
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
+  ],
+
+  // Environment variables
+  "containerEnv": {
+    "DISPLAY": ":1",
+    "VNC_RESOLUTION": "1920x1080",
+    "VNC_COLOR_DEPTH": "24",
+    "VNC_DPI": "96",
+    "ENABLE_PRINTSCREEN": "true",
+    "LANG": "en_US.UTF-8",
+    "LANGUAGE": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8"
+  }
 }
