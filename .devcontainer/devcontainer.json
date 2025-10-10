@@ -23,8 +23,6 @@
       "extensions": [
         // Live Share extensions
         "ms-vsliveshare.vsliveshare",
-        "ms-vsliveshare.vsliveshare-audio",
-        "ms-vsliveshare.vsliveshare-pack",
         
         // GitHub Copilot
         "github.copilot",
@@ -65,7 +63,6 @@
         "python.linting.flake8Enabled": true,
         "python.formatting.provider": "black",
         "jupyter.askForKernelRestart": false,
-        "liveshare.audio": true,
         "liveshare.anonymousGuestApproval": "accept",
         "liveshare.guestApprovalRequired": false,
         "liveshare.showInStatusBar": "whileCollaborating",

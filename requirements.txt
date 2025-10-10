@@ -20,3 +20,6 @@ psutil==5.9.5
 # Optional: Advanced ML
 plotly==5.15.0
 ipywidgets==8.0.7
+
+# Dataset Access
+kaggle==1.5.16
