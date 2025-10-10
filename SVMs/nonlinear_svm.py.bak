@@ -77,7 +77,7 @@ class NonlinearSVMExamples:
         
         plt.tight_layout()
         save_fig("polynomial_kernels", IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
         
         return results
     
@@ -131,7 +131,7 @@ class NonlinearSVMExamples:
         
         plt.tight_layout()
         save_fig("rbf_hyperparameters", IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
         
         return svm_clfs
     
@@ -180,7 +180,7 @@ class NonlinearSVMExamples:
         
         plt.tight_layout()
         save_fig("gaussian_rbf_demo", IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
         
         print("RBF transformation maps data to higher dimensional space where it becomes linearly separable!")
     
@@ -228,7 +228,7 @@ class NonlinearSVMExamples:
         
         # Save figure
         save_fig(title.lower().replace(' ', '_'), IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
     
     def compare_kernels(self):
         """Compare different kernel types side by side."""
@@ -262,7 +262,7 @@ class NonlinearSVMExamples:
         
         plt.tight_layout()
         save_fig("kernel_comparison", IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
     
     def run_all(self):
         """Run all nonlinear SVM examples."""

@@ -105,7 +105,7 @@ plt.gca().set_aspect("equal")
 plt.grid()
 
 save_fig("large_margin_classification_plot")
-# plt.show() # Disabled for headless mode
+plt.show()
 
 # === Cell 15 ===
 # extra code – this cell generates and saves Figure 5–2
@@ -142,7 +142,7 @@ plt.axis([-2, 2, -2, 2])
 plt.grid()
 
 save_fig("sensitivity_to_feature_scales_plot")
-# plt.show() # Disabled for headless mode
+plt.show()
 
 # === Cell 19 ===
 import numpy as np
@@ -211,7 +211,7 @@ for i, svm_clf in enumerate(svm_clfs):
         plt.ylabel("")
 
 save_fig("moons_rbf_svc_plot")
-# plt.show() # Disabled for headless mode
+plt.show()
 
 # === Cell 36 ===
 from sklearn.svm import LinearSVR
@@ -278,7 +278,7 @@ plt.sca(axes[1])
 plot_2D_decision_function(0.5, 0, ylabel=False)
 plt.grid()
 save_fig("small_w_large_margin_plot")
-# plt.show() # Disabled for headless mode
+plt.show()
 
 # === Cell 46 ===
 from sklearn.base import BaseEstimator
@@ -361,7 +361,7 @@ plt.title("SGDClassifier")
 plt.axis([4, 6, 0.8, 2.8])
 plt.grid()
 
-# plt.show() # Disabled for headless mode
+plt.show()
 
 # === Cell 59 ===
 from sklearn import datasets

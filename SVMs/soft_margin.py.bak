@@ -80,7 +80,7 @@ class SoftMarginSVMExamples:
         
         plt.tight_layout()
         save_fig("scaling_comparison", IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
     
     def outlier_sensitivity(self):
         """Demonstrate SVM sensitivity to outliers with different C values."""
@@ -151,7 +151,7 @@ class SoftMarginSVMExamples:
         
         plt.tight_layout()
         save_fig("outlier_sensitivity", IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
     
     def regularization_comparison(self):
         """Compare different regularization strengths (C values)."""
@@ -194,7 +194,7 @@ class SoftMarginSVMExamples:
         
         plt.tight_layout()
         save_fig("regularization_comparison", IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
         
         # Print summary
         print("\\nRegularization Effects:")

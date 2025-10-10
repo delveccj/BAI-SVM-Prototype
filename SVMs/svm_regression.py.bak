@@ -110,7 +110,7 @@ class SVMRegressionExamples:
         
         plt.tight_layout()
         save_fig("epsilon_sensitivity", IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
         
         return models
     
@@ -125,7 +125,7 @@ class SVMRegressionExamples:
         plt.suptitle(title)
         plt.tight_layout()
         save_fig(title.lower().replace(' ', '_'), IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
     
     def _plot_single_svr(self, model, ax, title):
         """Plot single SVR model."""
@@ -178,7 +178,7 @@ class SVMRegressionExamples:
         
         plt.tight_layout()
         save_fig("svr_kernel_comparison", IMAGES_PATH)
-        # plt.show() # Disabled for headless mode
+        plt.show()
     
     def run_all(self):
         """Run all SVM regression examples."""
